@@ -1,0 +1,27 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSurface">@color/colorWhite</item>
+    </style>
+
+    <style name="Widget.TestApp.IconButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="rippleColor">?attr/colorControlHighlight</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">0dp</item>
+        <item name="iconSize">20dp</item>
+        <item name="iconTint">?attr/colorOnSurface</item>
+        <item name="cornerRadius">20dp</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="android:outlineProvider">none</item>
+    </style>
+
+</resources>
