@@ -1,10 +1,15 @@
 package com.muzzlyworld.testapp.utils
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import androidx.annotation.WorkerThread
 import kotlinx.coroutines.*
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
 import java.net.URL
 
 
@@ -18,11 +23,13 @@ fun ImageView.loadImage(url: String) {
     addOnAttachStateChangeListener(attachListener)
     scope.launch {
         val bitmap = try {
-            BitmapFactory.decodeStream(URL(url).openConnection().getInputStream())
+            val connection = URL(url).openConnection()
+            decodeSampledBitmap(connection.getInputStream(), width, height)
         } catch (e: Exception) {
             Log.e("ImageView", "loadImage: $e")
             null
         }
+        Log.d("ImageView", "loadImage: ${bitmap == null}")
         if(isActive) {
             try {
                 withContext(Dispatchers.Main) { bitmap?.let { setImageBitmap(it) } }
@@ -30,4 +37,41 @@ fun ImageView.loadImage(url: String) {
         }
         removeOnAttachStateChangeListener(attachListener)
     }
+}
+
+@WorkerThread
+private fun decodeSampledBitmap(
+    inputStream: InputStream,
+    reqWith: Int,
+    reqHeight: Int
+) : Bitmap? = BitmapFactory.Options().run {
+    val baos = ByteArrayOutputStream()
+    inputStream.copyTo(baos)
+
+    inJustDecodeBounds = true
+
+    BitmapFactory.decodeStream(inputStream, null, this)
+
+    inSampleSize = calculateInSampleSize(this, reqWith, reqHeight)
+
+    inJustDecodeBounds = false
+
+    val copyStream: InputStream = ByteArrayInputStream(baos.toByteArray())
+    BitmapFactory.decodeStream(copyStream, null, this)
+}
+
+private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
+    val (height: Int, width: Int) = options.run { outHeight to outWidth }
+    var inSampleSize = 1
+
+    if (height > reqHeight || width > reqWidth) {
+
+        val halfHeight: Int = height / 2
+        val halfWidth: Int = width / 2
+
+        while (halfHeight / inSampleSize >= reqHeight && halfWidth / inSampleSize >= reqWidth) {
+            inSampleSize *= 2
+        }
+    }
+    return inSampleSize
 }
