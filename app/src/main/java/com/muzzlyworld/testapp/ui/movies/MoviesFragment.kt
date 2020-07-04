@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +22,12 @@ import com.muzzlyworld.testapp.utils.LoadingAdapter
 
 class MoviesFragment : Fragment() {
 
-    private lateinit var moviesViewModel: MoviesViewModel
+    private val moviesViewModel by viewModels<MoviesViewModel> {
+        MoviesViewModelFactory(
+            (requireActivity().application as App).appContainer.trendingMoviePaginator,
+            (requireActivity().application as App).appContainer.searchedMoviePaginator
+        )
+    }
 
     private var _binding: FragmentMoviesBinding? = null
     private val binding get() = _binding!!
@@ -31,14 +37,6 @@ class MoviesFragment : Fragment() {
 
     private var _loadingAdapter: LoadingAdapter? = null
     private val loadingAdapter: LoadingAdapter get() = _loadingAdapter!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (!::moviesViewModel.isInitialized) {
-            val appContainer = (requireActivity().application as App).appContainer
-            moviesViewModel = MoviesViewModel(appContainer.trendingMoviePaginator, appContainer.searchedMoviePaginator)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +54,8 @@ class MoviesFragment : Fragment() {
         binding.movies.adapter = ConcatAdapter(movieAdapter, loadingAdapter)
         binding.movies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                val lastVisibleItemPosition = (binding.movies.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                val lastVisibleItemPosition =
+                    (binding.movies.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                 moviesViewModel.loadNextMovies(lastVisibleItemPosition)
             }
         })
@@ -82,9 +81,11 @@ class MoviesFragment : Fragment() {
     }
 
     private fun render(state: MoviesViewState) {
-        if(state.isSearching) binding.searchIcon.setIconResource(R.drawable.ic_back_arrow)
+        if (state.isSearching) binding.searchIcon.setIconResource(R.drawable.ic_back_arrow)
         else binding.searchIcon.setIconResource(R.drawable.ic_search)
-        if(state.isSearching) movieAdapter.submitList(state.searchedMovies) else movieAdapter.submitList(state.trendingMovies)
+        if (state.isSearching) movieAdapter.submitList(state.searchedMovies) else movieAdapter.submitList(
+            state.trendingMovies
+        )
         //if(state.showLoading) loadingAdapter.submitList(listOf(Unit)) else loadingAdapter.submitList(listOf())
     }
 

@@ -105,6 +105,15 @@ class MoviesViewModel(
         val state = _state.value!!
         return (lastVisibleItemPosition >= state.searchedMovies.size - 5) && !(state.showLoading || state.showError || searchedMoviePaginator.isAllDataLoaded())
     }
+}
 
+class MoviesViewModelFactory(
+    private val trendingMoviePaginator: TrendingMoviePaginator,
+    private val searchedMoviePaginator: SearchedMoviePaginator
+) : ViewModelProvider.Factory {
 
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return MoviesViewModel(trendingMoviePaginator, searchedMoviePaginator) as T
+    }
 }

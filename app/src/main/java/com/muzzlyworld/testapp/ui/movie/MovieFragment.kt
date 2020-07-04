@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.muzzlyworld.testapp.App
 import com.muzzlyworld.testapp.R
@@ -18,7 +19,12 @@ private const val MOVIE_ID_ARG = "movie_id_arg"
 
 class MovieFragment : Fragment() {
 
-    private lateinit var movieViewModel: MovieViewModel
+    private val movieViewModel by viewModels<MovieViewModel> {
+        MovieViewModelFactory(
+            getMovieId(),
+            (requireActivity().application as App).appContainer.movieRepository
+        )
+    }
 
     private var _binding: FragmentMovieBinding? = null
     private val binding get() = _binding!!
@@ -28,15 +34,6 @@ class MovieFragment : Fragment() {
 
     private var _directorAdapter: DirectorAdapter? = null
     private val directorAdapter get() = _directorAdapter!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (!::movieViewModel.isInitialized) {
-            val movieId = arguments?.getInt(MOVIE_ID_ARG) ?: throw IllegalStateException()
-            val appContainer = (requireActivity().application as App).appContainer
-            movieViewModel = MovieViewModel(movieId, appContainer.movieRepository)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,6 +71,8 @@ class MovieFragment : Fragment() {
         actorAdapter.submitList(state.cast)
         directorAdapter.submitList(state.directors)
     }
+
+    private fun getMovieId(): Int = arguments?.getInt(MOVIE_ID_ARG) ?: throw IllegalStateException()
 
     companion object {
         @JvmStatic
