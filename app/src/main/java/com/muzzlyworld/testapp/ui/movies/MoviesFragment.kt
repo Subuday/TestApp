@@ -83,10 +83,11 @@ class MoviesFragment : Fragment() {
     private fun render(state: MoviesViewState) {
         if (state.isSearching) binding.searchIcon.setIconResource(R.drawable.ic_back_arrow)
         else binding.searchIcon.setIconResource(R.drawable.ic_search)
+        binding.error.visibility = if(state.showError) View.VISIBLE else View.GONE
+        //if(state.showLoading) loadingAdapter.submitList(listOf(Unit)) else loadingAdapter.submitList(listOf())
         if (state.isSearching) movieAdapter.submitList(state.searchedMovies) else movieAdapter.submitList(
             state.trendingMovies
         )
-        //if(state.showLoading) loadingAdapter.submitList(listOf(Unit)) else loadingAdapter.submitList(listOf())
     }
 
     private fun clearSearchInput() {
