@@ -81,6 +81,7 @@ class MoviesViewModel(
 
         lastSearchJob = viewModelScope.launch {
             delay(300)
+            _state.value = _state.value!!.copy(showLoading = true, searchedMovies = listOf())
             when(val result = searchedMoviePaginator.loadLatestByName(searchName)) {
                 is Success -> _state.value = _state.value!!.copy(searchedMovies = result.data, isSearching = true, showLoading = false, showError = false)
                 is Error -> _state.value = _state.value!!.copy(searchedMovies = listOf(), showLoading = false, showError = true)
