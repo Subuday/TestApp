@@ -14,15 +14,18 @@ class MovieAdapter(
     private val onMovieClickListener: MovieClickListener
 ) : ListAdapter<Movie, MovieViewHolder>(diffCallback) {
 
+    init { setHasStableIds(true) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =
         MovieViewHolder.create(parent, onMovieClickListener)
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        getItem(position)?.let { holder.bind(it) }
+        holder.bind(getItem(position))
     }
 
     override fun getItemViewType(position: Int): Int = R.layout.item_movie
+
+    override fun getItemId(position: Int): Long = getItem(position).id.toLong()
 
     private companion object {
         val diffCallback = object : DiffUtil.ItemCallback<Movie>() {

@@ -55,6 +55,7 @@ class MoviesFragment : Fragment() {
         _loadingAdapter = LoadingAdapter()
 
         val concatAdapterConfig = ConcatAdapter.Config.Builder()
+            .setStableIdMode(ConcatAdapter.Config.StableIdMode.ISOLATED_STABLE_IDS)
             .setIsolateViewTypes(false)
             .build()
         val concatAdapter = ConcatAdapter(concatAdapterConfig, movieAdapter, loadingAdapter)

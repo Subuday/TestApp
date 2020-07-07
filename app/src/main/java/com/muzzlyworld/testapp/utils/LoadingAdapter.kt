@@ -11,7 +11,11 @@ private const val HIDE_LOADING_ITEM = 0
 
 private const val LOADING_ITEM_POSITION = 0
 
+private const val LOADING_ITEM_STABLE_ID = 3234L
+
 class LoadingAdapter : RecyclerView.Adapter<LoadingViewHolder>() {
+
+    init { setHasStableIds(true) }
 
     var isLoading: Boolean = false
         set(isLoading) {
@@ -30,6 +34,8 @@ class LoadingAdapter : RecyclerView.Adapter<LoadingViewHolder>() {
     override fun getItemCount(): Int = if(isLoading) SHOW_LOADING_ITEM else HIDE_LOADING_ITEM
 
     override fun getItemViewType(position: Int): Int = R.layout.item_loading_row
+
+    override fun getItemId(position: Int): Long = LOADING_ITEM_STABLE_ID
 }
 
 class LoadingViewHolder private constructor(

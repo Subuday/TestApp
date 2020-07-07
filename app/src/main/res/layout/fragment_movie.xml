@@ -41,6 +41,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:scaleType="centerCrop"
+                    android:transitionName="transition_poster"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -111,6 +112,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#FFFFFF"
                     android:textSize="22sp"
+                    android:transitionName="transition_name"
                     app:fontFamily="@font/roboto_bold"
                     tools:text="Harry Potter" />
 
@@ -136,6 +138,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"
+                    android:transitionName="transition_description"
                     app:fontFamily="@font/roboto"
                     tools:text="film film and film" />
             </LinearLayout>
@@ -162,8 +165,8 @@
                     android:text="Cast"
                     android:textColor="#FFFFFF"
                     android:textSize="22sp"
-                    app:fontFamily="@font/roboto_bold"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:fontFamily="@font/roboto_bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/cast"
@@ -199,8 +202,8 @@
                     android:ellipsize="end"
                     android:text="Directors"
                     android:textColor="#FFFFFF"
-                    app:fontFamily="@font/roboto_bold"
-                    android:textSize="22sp" />
+                    android:textSize="22sp"
+                    app:fontFamily="@font/roboto_bold" />
 
 
                 <androidx.recyclerview.widget.RecyclerView
