@@ -22,7 +22,7 @@
         android:layout_gravity="center"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/roboto_bold"
         tools:text="Bred Pit"/>
 
 </LinearLayout>

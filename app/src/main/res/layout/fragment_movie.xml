@@ -93,50 +93,53 @@
             android:orientation="vertical">
 
             <LinearLayout
-                    android:id="@+id/mainInformation"
-                    android:layout_width="match_parent"
+                android:id="@+id/mainInformation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/rounded_layout_4dp"
+                android:orientation="vertical"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:padding="8dp"
-                    android:background="@drawable/rounded_layout_4dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    app:fontFamily="@font/roboto_bold"
+                    tools:text="Harry Potter" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#FFFFFF"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        tools:text="Harry Potter" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/releaseDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#DCDCDC"
+                    app:fontFamily="@font/roboto_italic"
+                    tools:text="12-20-04" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/releaseDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#DCDCDC"
-                        tools:text="12-20-04"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/genres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#DCDCDC"
+                    app:fontFamily="@font/roboto_italic"
+                    tools:text="Horror, Horror, Horror" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/genres"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#DCDCDC"
-                        tools:text="Horror, Horror, Horror" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        tools:text="film film and film" />
-                </LinearLayout>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    app:fontFamily="@font/roboto"
+                    tools:text="film film and film" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/castLayout"
@@ -145,10 +148,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
                 android:background="@drawable/rounded_layout_4dp"
                 android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/mainInformation"
                 app:layout_constraintStart_toStartOf="@+id/mainInformation"
                 app:layout_constraintTop_toBottomOf="@+id/mainInformation">
@@ -160,6 +163,7 @@
                     android:text="Cast"
                     android:textColor="#FFFFFF"
                     android:textSize="22sp"
+                    app:fontFamily="@font/roboto_bold"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -177,13 +181,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:orientation="vertical"
                 android:background="@drawable/rounded_layout_4dp"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/castLayout"
                 app:layout_constraintStart_toStartOf="@+id/castLayout"
                 app:layout_constraintTop_toBottomOf="@+id/castLayout">
@@ -196,8 +200,8 @@
                     android:ellipsize="end"
                     android:text="Directors"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                    app:fontFamily="@font/roboto_bold"
+                    android:textSize="22sp" />
 
 
                 <androidx.recyclerview.widget.RecyclerView

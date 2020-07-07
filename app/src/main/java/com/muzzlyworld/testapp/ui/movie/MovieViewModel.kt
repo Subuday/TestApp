@@ -31,7 +31,7 @@ class MovieViewModel(
                     name = movieDetails.name,
                     description = movieDetails.description,
                     releaseDate = movieDetails.releaseDate,
-                    genres = movieDetails.genres.joinToString("*") { it.name },
+                    genres = movieDetails.genres.joinToString(" | ") { it.name },
                     cast = movieDetails.cast,
                     directors = movieDetails.directors,
                     isLoading = false

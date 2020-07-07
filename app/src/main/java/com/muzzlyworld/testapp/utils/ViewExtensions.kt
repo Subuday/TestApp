@@ -18,7 +18,7 @@ fun ImageView.loadImage(url: String) {
     val scope = CoroutineScope(Dispatchers.IO)
     val attachListener = object : View.OnAttachStateChangeListener {
         override fun onViewDetachedFromWindow(v: View?) { scope.cancel() }
-        override fun onViewAttachedToWindow(v: View?) {}
+        override fun onViewAttachedToWindow(v: View?) { setImageBitmap(null) }
     }
     addOnAttachStateChangeListener(attachListener)
     scope.launch {

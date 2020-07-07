@@ -27,11 +27,13 @@
 
     <style name="TextAppearance.TestApp.Title.Collapsed" parent="">
         <item name="android:textColor">#FFFFFF</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="TextAppearance.TestApp.Title.Expanded" parent="">
         <item name="android:textSize">32sp</item>
         <item name="android:textColor">#FFFFFF</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
     </style>
 
 </resources>
