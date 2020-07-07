@@ -64,6 +64,7 @@ class MovieFragment : Fragment() {
 
     private fun render(state: MovieViewState) {
         binding.poster.loadImage(state.poster)
+        binding.collapsingToolbarLayout.title = state.name
         binding.name.text = state.name
         binding.description.text = state.description
         binding.releaseDate.text = state.releaseDate

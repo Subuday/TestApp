@@ -24,4 +24,14 @@
         <item name="android:outlineProvider">none</item>
     </style>
 
+
+    <style name="TextAppearance.TestApp.Title.Collapsed" parent="">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="TextAppearance.TestApp.Title.Expanded" parent="">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
 </resources>
