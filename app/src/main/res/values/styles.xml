@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">#FFFFFF</item>
         <item name="colorSurface">@color/colorWhite</item>
     </style>
 
@@ -13,7 +13,7 @@
         <item name="android:insetTop">0dp</item>
         <item name="android:insetRight">0dp</item>
         <item name="android:insetBottom">0dp</item>
-        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetLeft">0dp</item>   
         <item name="rippleColor">?attr/colorControlHighlight</item>
         <item name="iconGravity">textStart</item>
         <item name="iconPadding">0dp</item>
@@ -23,7 +23,6 @@
         <item name="backgroundTint">@android:color/transparent</item>
         <item name="android:outlineProvider">none</item>
     </style>
-
 
     <style name="TextAppearance.TestApp.Title.Collapsed" parent="">
         <item name="android:textColor">#FFFFFF</item>
