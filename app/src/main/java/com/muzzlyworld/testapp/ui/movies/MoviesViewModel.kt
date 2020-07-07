@@ -15,7 +15,7 @@ class MoviesViewModel(
 
     private val _state = MutableLiveData(MoviesViewState.idle())
     val state: LiveData<MoviesViewState> get() = _state
-    
+
     private val _effect = MutableLiveData<Event<Effect>>()
     val effect: LiveData<Event<Effect>> get() = _effect
 
@@ -26,13 +26,22 @@ class MoviesViewModel(
     private fun loadTrendingMovies() = viewModelScope.launch {
         _state.value = _state.value!!.copy(showLoading = true)
         when (val result = trendingMoviePaginator.loadLatestData()) {
-            is Success -> _state.value = _state.value!!.copy(trendingMovies = result.data, showLoading = false, showError = false)
-            is Error -> _state.value = _state.value!!.copy(trendingMovies = listOf(), showLoading = false, showError = true)
+            is Success -> _state.value = _state.value!!.copy(
+                trendingMovies = result.data,
+                showLoading = false,
+                showError = false
+            )
+            is Error -> _state.value = _state.value!!.copy(
+                trendingMovies = listOf(),
+                searchedMovies = listOf(),
+                showLoading = false,
+                showError = true
+            )
         }
     }
 
     fun loadNextMovies(lastVisibleItemPosition: Int) {
-        if(_state.value!!.isSearching) loadNextSearchedMovies(lastVisibleItemPosition)
+        if (_state.value!!.isSearching) loadNextSearchedMovies(lastVisibleItemPosition)
         else loadNextTrendingMovies(lastVisibleItemPosition)
     }
 
@@ -40,13 +49,22 @@ class MoviesViewModel(
         if (!checkIfNextTrendingMoviesCanBeLoaded(lastVisibleItemPosition)) return
         viewModelScope.launch {
             _state.value = _state.value!!.copy(showLoading = true)
-            when(val result = trendingMoviePaginator.loadNextData()) {
+            when (val result = trendingMoviePaginator.loadNextData()) {
                 is Success -> {
                     val state = _state.value!!
-                    _state.value = state.copy(trendingMovies = state.trendingMovies + result.data, showLoading = false, showError = false)
+                    _state.value = state.copy(
+                        trendingMovies = state.trendingMovies + result.data,
+                        showLoading = false,
+                        showError = false
+                    )
                 }
                 is Error -> {
-                    _state.value = _state.value!!.copy(trendingMovies = listOf(), showLoading = false, showError = true)
+                    _state.value = _state.value!!.copy(
+                        trendingMovies = listOf(),
+                        searchedMovies = listOf(),
+                        showLoading = false,
+                        showError = true
+                    )
                     onSearchIconClick()
                 }
             }
@@ -54,16 +72,25 @@ class MoviesViewModel(
     }
 
     private fun loadNextSearchedMovies(lastVisibleItemPosition: Int) {
-        if(!checkIfNextSearchedMoviesCanBeLoaded(lastVisibleItemPosition)) return
+        if (!checkIfNextSearchedMoviesCanBeLoaded(lastVisibleItemPosition)) return
         viewModelScope.launch {
             _state.value = _state.value!!.copy(showLoading = true)
-            when(val result = searchedMoviePaginator.loadNextData()) {
+            when (val result = searchedMoviePaginator.loadNextData()) {
                 is Success -> {
                     val state = _state.value!!
-                    _state.value = state.copy(searchedMovies = state.searchedMovies + result.data, showLoading = false, showError = false)
+                    _state.value = state.copy(
+                        searchedMovies = state.searchedMovies + result.data,
+                        showLoading = false,
+                        showError = false
+                    )
                 }
                 is Error -> {
-                    _state.value = _state.value!!.copy(searchedMovies = listOf(), showLoading = false, showError = true)
+                    _state.value = _state.value!!.copy(
+                        trendingMovies = listOf(),
+                        searchedMovies = listOf(),
+                        showLoading = false,
+                        showError = true
+                    )
                     onSearchIconClick()
                 }
             }
@@ -74,7 +101,7 @@ class MoviesViewModel(
     private var lastSearchName: String = ""
     fun searchMovie(name: String) {
         val searchName = name.trim()
-        if(lastSearchName == searchName || searchName.isBlank()) return
+        if (lastSearchName == searchName || searchName.isBlank()) return
 
         lastSearchJob?.cancel()
         lastSearchName = searchName
@@ -82,17 +109,27 @@ class MoviesViewModel(
         lastSearchJob = viewModelScope.launch {
             delay(300)
             _state.value = _state.value!!.copy(showLoading = true, searchedMovies = listOf())
-            when(val result = searchedMoviePaginator.loadLatestByName(searchName)) {
-                is Success -> _state.value = _state.value!!.copy(searchedMovies = result.data, isSearching = true, showLoading = false, showError = false)
-                is Error -> _state.value = _state.value!!.copy(searchedMovies = listOf(), showLoading = false, showError = true)
+            when (val result = searchedMoviePaginator.loadLatestByName(searchName)) {
+                is Success -> _state.value = _state.value!!.copy(
+                    searchedMovies = result.data,
+                    isSearching = true,
+                    showLoading = false,
+                    showError = false
+                )
+                is Error -> _state.value = _state.value!!.copy(
+                    trendingMovies = listOf(),
+                    searchedMovies = listOf(),
+                    showLoading = false,
+                    showError = true
+                )
             }
         }
     }
 
     fun onSearchIconClick() {
-        if(_state.value!!.isSearching) {
+        if (_state.value!!.isSearching) {
             _effect.value = Event(Effect.ClearSearchEffect)
-            _state.value = _state.value!!.copy(searchedMovies = listOf(), isSearching =  false)
+            _state.value = _state.value!!.copy(searchedMovies = listOf(), isSearching = false)
         }
     }
 
@@ -102,7 +139,7 @@ class MoviesViewModel(
         return (lastVisibleItemPosition >= state.trendingMovies.size - 5) && !(state.showLoading || state.showError || trendingMoviePaginator.isAllDataLoaded())
     }
 
-    private fun checkIfNextSearchedMoviesCanBeLoaded(lastVisibleItemPosition: Int) : Boolean {
+    private fun checkIfNextSearchedMoviesCanBeLoaded(lastVisibleItemPosition: Int): Boolean {
         val state = _state.value!!
         return (lastVisibleItemPosition >= state.searchedMovies.size - 5) && !(state.showLoading || state.showError || searchedMoviePaginator.isAllDataLoaded())
     }
