@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.muzzlyworld.testapp.R
 import com.muzzlyworld.testapp.core.Movie
 import com.muzzlyworld.testapp.databinding.ItemMovieBinding
 import com.muzzlyworld.testapp.utils.loadImage
@@ -21,10 +22,15 @@ class MovieAdapter(
         getItem(position)?.let { holder.bind(it) }
     }
 
+    override fun getItemViewType(position: Int): Int = R.layout.item_movie
+
     private companion object {
         val diffCallback = object : DiffUtil.ItemCallback<Movie>() {
-            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean = oldItem.id == newItem.id
-            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean = oldItem == newItem
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean =
+                oldItem.id == newItem.id
+
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean =
+                oldItem == newItem
         }
     }
 }
@@ -45,7 +51,8 @@ class MovieViewHolder private constructor(
 
     companion object {
         fun create(parent: ViewGroup, clickListener: MovieClickListener): MovieViewHolder {
-            val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            val binding =
+                ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return MovieViewHolder(binding, clickListener)
         }
     }

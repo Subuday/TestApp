@@ -20,7 +20,6 @@
             app:expandedTitleMarginStart="24dp"
             app:expandedTitleTextAppearance="@style/TextAppearance.TestApp.Title.Expanded"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:maxLines="2"
             tools:title="Film with very long title oh my god">
 
             <androidx.constraintlayout.widget.ConstraintLayout

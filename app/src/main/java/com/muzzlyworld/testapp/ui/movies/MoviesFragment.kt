@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.ConcatAdapter
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.muzzlyworld.testapp.App
@@ -19,6 +20,7 @@ import com.muzzlyworld.testapp.R
 import com.muzzlyworld.testapp.Router
 import com.muzzlyworld.testapp.databinding.FragmentMoviesBinding
 import com.muzzlyworld.testapp.utils.LoadingAdapter
+import kotlinx.android.synthetic.main.fragment_movies.*
 
 class MoviesFragment : Fragment() {
 
@@ -51,14 +53,29 @@ class MoviesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _movieAdapter = MovieAdapter { (requireActivity() as Router).navigateToMovie(it) }
         _loadingAdapter = LoadingAdapter()
-        binding.movies.adapter = ConcatAdapter(movieAdapter, loadingAdapter)
-        binding.movies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                val lastVisibleItemPosition =
-                    (binding.movies.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                moviesViewModel.loadNextMovies(lastVisibleItemPosition)
-            }
-        })
+
+        val concatAdapterConfig = ConcatAdapter.Config.Builder()
+            .setIsolateViewTypes(false)
+            .build()
+        val concatAdapter = ConcatAdapter(concatAdapterConfig, movieAdapter, loadingAdapter)
+
+        val gridLayoutManager = GridLayoutManager(requireContext(), 2)
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int =
+                if(concatAdapter.getItemViewType(position) == loadingAdapter.getItemViewType(position)) 2 else 1
+        }
+
+        binding.movies.run {
+            layoutManager = gridLayoutManager
+            adapter = concatAdapter
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    val lastVisibleItemPosition =
+                        (binding.movies.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                    moviesViewModel.loadNextMovies(lastVisibleItemPosition)
+                }
+            })
+        }
 
         binding.searchIcon.setOnClickListener { moviesViewModel.onSearchIconClick() }
 
