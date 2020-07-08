@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000">
+    android:background="?attr/colorPrimary">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="4dp"
-        android:backgroundTint="#424242">
+        android:backgroundTint="?attr/colorSurface">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
@@ -43,12 +43,12 @@
                     android:layout_height="0dp"
                     android:scaleType="centerCrop"
                     android:transitionName="transition_poster"
+                    android:backgroundTint="?attr/colorOnSurface"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                     android:layout_width="match_parent"
@@ -111,7 +111,7 @@
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="22sp"
                     android:transitionName="transition_name"
                     app:fontFamily="@font/roboto_bold"
@@ -121,7 +121,7 @@
                     android:id="@+id/releaseDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#DCDCDC"
+                    android:textColor="?attr/colorOnPrimary"
                     app:fontFamily="@font/roboto_italic"
                     tools:text="12-20-04" />
 
@@ -129,7 +129,7 @@
                     android:id="@+id/genres"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#DCDCDC"
+                    android:textColor="?attr/colorOnPrimary"
                     app:fontFamily="@font/roboto_italic"
                     tools:text="Horror, Horror, Horror" />
 
@@ -137,7 +137,7 @@
                     android:id="@+id/description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="18sp"
                     android:transitionName="transition_description"
                     app:fontFamily="@font/roboto"
@@ -164,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="Cast"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="22sp"
                     android:textStyle="bold"
                     app:fontFamily="@font/roboto_bold" />
@@ -202,7 +202,7 @@
                     android:layout_marginStart="8dp"
                     android:ellipsize="end"
                     android:text="Directors"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="22sp"
                     app:fontFamily="@font/roboto_bold" />
 

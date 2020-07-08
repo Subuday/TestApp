@@ -23,7 +23,7 @@
         android:gravity="center"
         android:maxLines="1"
         android:ellipsize="end"
-        android:textColor="#FFFFFF"
+        android:textColor="?attr/colorAccent"
         android:textSize="18sp"
         android:fontFamily="@font/roboto_bold"
         tools:text="Bred Pit"/>

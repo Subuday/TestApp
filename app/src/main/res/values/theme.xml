@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Platform.V21.Theme.TestApp" parent="Theme.MaterialComponents.Light.NoActionBar"/>
+
+    <style name="Platform.Theme.TestApp" parent="Platform.V21.Theme.TestApp"/>
+
+    <style name="AppTheme" parent="Platform.Theme.TestApp">
+        <item name="colorPrimary">@color/colorBlack</item>
+        <item name="colorOnPrimary">@color/colorGrey</item>
+        <item name="colorAccent">@color/colorWhite</item>
+        <item name="colorSurface">@color/colorBlack424</item>
+        <item name="colorOnSurface">@color/colorWhite</item>
+    </style>
+
+</resources>

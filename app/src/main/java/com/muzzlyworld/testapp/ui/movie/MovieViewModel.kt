@@ -17,9 +17,7 @@ class MovieViewModel(
     private val _state = MutableLiveData<MovieViewState>(MovieViewState.idle())
     val state: LiveData<MovieViewState> get() = _state
 
-    init {
-        loadMovie()
-    }
+    init { loadMovie() }
 
     private fun loadMovie() = viewModelScope.launch {
         _state.value = _state.value!!.copy(isLoading = true)

@@ -1,12 +1,5 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="colorSurface">@color/colorWhite</item>
-    </style>
-
     <style name="Widget.TestApp.IconButton" parent="Widget.MaterialComponents.Button">
         <item name="android:layout_width">40dp</item>
         <item name="android:layout_height">40dp</item>

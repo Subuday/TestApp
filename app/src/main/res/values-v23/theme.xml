@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Platform.V23.Theme.TestApp" parent="Platform.V21.Theme.TestApp">
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="Platform.Theme.TestApp" parent="Platform.V23.Theme.TestApp"/>
+
+</resources>
